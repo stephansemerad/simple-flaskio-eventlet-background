@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Demo - background worker</title>
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+
+            $(document).ready(function() {
+                var socketio = null;
+                socket = io();
+
+                $("#start").on("click", function() {
+                    console.log('start')
+                    socket.emit("start");
+                });
+
+                $("#stop").on("click", function() {
+                    console.log('stop')
+                    socket.emit("stop");
+                });
+
+                socket.on("update", function(msg) {
+                    console.log('update')
+                    console.log(msg)
+                    $(".report").append(msg.msg + "<br />");
+                });
+            });
+
+        </script>
+
+    </head>
+
+    <body>
+        <div class="main_container" >
+
+            <div class="control">
+                <a href="#" id="start" value="start">start</a>
+                <a href="#" id="stop" value="stop">stop</a>
+            </div>
+
+            <div class="report">
+            </div>
+        </div>
+    </body>
+</html>
